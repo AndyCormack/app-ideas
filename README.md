@@ -14,7 +14,7 @@ Working on learning Svelte and SvelteKit by creating the apps listed here: [http
 
 ### Tier 1
 
-- [x] [Bin2Dec](https://github.com/florinpop17/app-ideas/blob/master/Projects/1-Beginner/Bin2Dec-App.md)
+- [x] [Bin2Dec](https://github.com/florinpop17/app-ideas/blob/master/Projects/1-Beginner/Bin2Dec-App.md) (2024/26/01)
 
   #### User Stories
 
