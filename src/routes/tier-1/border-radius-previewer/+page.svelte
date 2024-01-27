@@ -78,7 +78,6 @@
           min="0"
           max="100"
           class="vertical w-6 h-20"
-          orient="vertical"
         />
 
         <div class="flex flex-row gap-1">
@@ -120,7 +119,6 @@
           min="0"
           max="100"
           class="vertical w-6 h-20"
-          orient="vertical"
         />
 
         <div class="flex flex-row gap-1">
@@ -154,7 +152,6 @@
           min="0"
           max="100"
           class="vertical w-6 h-20"
-          orient="vertical"
         />
       </div>
 
@@ -196,7 +193,6 @@
           min="0"
           max="100"
           class="vertical w-6 h-20"
-          orient="vertical"
         />
       </div>
 
@@ -226,5 +222,6 @@
   .vertical {
     appearance: slider-vertical;
     orient: vertical;
+    writing-mode: tb;
   }
 </style>
