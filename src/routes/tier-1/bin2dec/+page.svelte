@@ -28,7 +28,7 @@
         type="text"
         placeholder="e.g. 10011101"
         class="input input-bordered w-full max-w-xs"
-        maxlength="8"
+        maxlength="32"
         bind:value={binary}
         on:input={onInputChanged}
       />
