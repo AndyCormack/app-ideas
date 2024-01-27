@@ -46,7 +46,7 @@
 <div class="text-xl">Border-radius Previewer</div>
 
 <div
-  class="card card-bordered border-secondary bg-secondary-content m-8"
+  class="card card-bordered border-secondary bg-secondary-content m-8 shadow-2xl shadow-secondary/40"
   style:border-top-left-radius={topLeft.css}
   style:border-top-right-radius={topRight.css}
   style:border-bottom-left-radius={bottomLeft.css}
