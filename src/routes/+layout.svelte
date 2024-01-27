@@ -20,4 +20,6 @@
   </div>
 </header>
 
+<main class="w-full max-w-screen-md mx-auto p-4">
 <slot />
+</main>

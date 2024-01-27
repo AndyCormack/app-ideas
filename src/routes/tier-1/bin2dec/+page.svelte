@@ -16,37 +16,33 @@
   }
 </script>
 
-<div class="card card-bordered">
-  <div class="card-body">
-    <div class="card-title">Binary to Decimal</div>
+<div class="text-xl">Binary to Decimal</div>
 
-    <label class="form-control gap-2 w-full max-w-xs">
-      <div class="label">
-        <span class="label-text">Enter binary</span>
-      </div>
-
-      <input
-        type="text"
-        placeholder="e.g. 10011101"
-        class="input input-bordered"
-        maxlength="32"
-        bind:value={binary}
-        on:input={onInputChanged}
-      />
-
-      {#if error}
-        <div
-          in:flyDefault
-          out:flyDefault
-          class="alert p-1 rounded-sm alert-error text-white"
-        >
-          {error}
-        </div>
-      {/if}
-    </label>
-
-    {#if binary && !error}
-      <p>Result: {result}</p>
-    {/if}
+<label class="form-control gap-2 w-full max-w-xs">
+  <div class="label">
+    <span class="label-text">Enter binary</span>
   </div>
-</div>
+
+  <input
+    type="text"
+    placeholder="e.g. 10011101"
+    class="input input-bordered"
+    maxlength="32"
+    bind:value={binary}
+    on:input={onInputChanged}
+  />
+
+  {#if error}
+    <div
+      in:flyDefault
+      out:flyDefault
+      class="alert p-1 rounded-sm alert-error text-white"
+    >
+      {error}
+    </div>
+  {/if}
+</label>
+
+{#if binary && !error}
+  <p>Result: {result}</p>
+{/if}
