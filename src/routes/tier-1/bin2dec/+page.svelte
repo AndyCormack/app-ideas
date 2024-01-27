@@ -45,6 +45,8 @@
       {/if}
     </label>
 
-    <p>Result: {answer}</p>
+    {#if binary && !error}
+      <p>Result: {answer}</p>
+    {/if}
   </div>
 </div>
