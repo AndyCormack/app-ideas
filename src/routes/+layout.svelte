@@ -7,7 +7,7 @@
     <div class="dropdown dropdown-hover">
       <div tabindex="0" role="button" class="btn btn-ghost">Tier 1</div>
 
-      <ul class="menu dropdown-content shadow shadow-black/50 bg-base-100">
+      <ul class="menu dropdown-content shadow shadow-black/50 bg-base-200 w-52">
         <li><a href="/tier-1/bin2dec">Bin2Dec</a></li>
       </ul>
     </div>
