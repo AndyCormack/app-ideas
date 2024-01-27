@@ -9,6 +9,9 @@
 
       <ul class="menu dropdown-content shadow shadow-black/50 bg-base-200 w-52">
         <li><a href="/tier-1/bin2dec">Bin2Dec</a></li>
+        <li>
+          <a href="/tier-1/border-radius-previewer">Border-radius Previewer</a>
+        </li>
       </ul>
     </div>
   </div>
