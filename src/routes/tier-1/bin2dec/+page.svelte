@@ -3,12 +3,12 @@
   import { bin2Dec } from './bin2dec'
 
   let binary = $state('')
-  let answer = $state(0)
+  let result = $state(0)
   let error = $state('')
 
   function onInputChanged(event: Event) {
     try {
-      answer = bin2Dec(binary)
+      result = bin2Dec(binary)
       error = ''
     } catch (e) {
       error = (e as Error).message
@@ -46,7 +46,7 @@
     </label>
 
     {#if binary && !error}
-      <p>Result: {answer}</p>
+      <p>Result: {result}</p>
     {/if}
   </div>
 </div>
