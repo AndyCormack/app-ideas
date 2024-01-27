@@ -2,14 +2,12 @@
   import '../app.css'
 </script>
 
-<header class="navbar bg-base-100">
+<header class="navbar bg-base-200 sticky top-0 bg-opacity-85 backdrop-blur">
   <div class="navbar-start">
-    <div class="dropdown">
+    <div class="dropdown dropdown-hover">
       <div tabindex="0" role="button" class="btn btn-ghost">Tier 1</div>
 
-      <ul
-        class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow shadow-black/50 bg-base-100 rounded-box w-52"
-      >
+      <ul class="menu dropdown-content shadow shadow-black/50 bg-base-100">
         <li><a href="/tier-1/bin2dec">Bin2Dec</a></li>
       </ul>
     </div>
@@ -21,5 +19,5 @@
 </header>
 
 <main class="w-full max-w-screen-md mx-auto p-4">
-<slot />
+  <slot />
 </main>
