@@ -26,7 +26,7 @@ Working on learning Svelte and SvelteKit by creating the apps listed here: [http
 
   - [x] User can enter a variable number of binary digits
 
-- [x] [Border Radius Previewer](https://github.com/florinpop17/app-ideas/blob/master/Projects/1-Beginner/Border-Radius-Previewer.md)
+- [x] [Border Radius Previewer](https://github.com/florinpop17/app-ideas/blob/master/Projects/1-Beginner/Border-Radius-Previewer.md) 2024/26/01 - 2024/27/01
 
   #### User Stories
 
