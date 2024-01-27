@@ -4,50 +4,54 @@
     height: 20,
     widthUnit: 'px',
     heightUnit: 'px',
+    get css() {
+      return `${this.width}${this.widthUnit} ${this.height}${this.heightUnit}`
+    },
   })
-  let topLeftCss = $derived(
-    `${topLeft.width}${topLeft.widthUnit} ${topLeft.height}${topLeft.heightUnit}`
-  )
 
   let topRight = $state({
     width: 30,
     height: 40,
     widthUnit: 'px',
     heightUnit: 'px',
+    get css() {
+      return `${this.width}${this.widthUnit} ${this.height}${this.heightUnit}`
+    },
   })
-  let topRightCss = $derived(
-    `${topRight.width}${topRight.widthUnit} ${topRight.height}${topRight.heightUnit}`
-  )
 
   let bottomLeft = $state({
     width: 50,
     height: 60,
     widthUnit: 'px',
     heightUnit: 'px',
+    get css() {
+      return `${this.width}${this.widthUnit} ${this.height}${this.heightUnit}`
+    },
   })
-  let bottomLeftCss = $derived(
-    `${bottomLeft.width}${bottomLeft.widthUnit} ${bottomLeft.height}${bottomLeft.heightUnit}`
-  )
 
   let bottomRight = $state({
     width: 70,
     height: 80,
     widthUnit: 'px',
     heightUnit: 'px',
+    get css() {
+      return `${this.width}${this.widthUnit} ${this.height}${this.heightUnit}`
+    },
   })
-  let bottomRightCss = $derived(
-    `${bottomRight.width}${bottomRight.widthUnit} ${bottomRight.height}${bottomRight.heightUnit}`
-  )
+
+  let el: HTMLElement | undefined = $state()
+  let css = $derived(el?.getAttribute('style') ?? '')
 </script>
 
 <div class="text-xl">Border-radius Previewer</div>
 
 <div
   class="card bg-secondary-content m-8"
-  style:border-top-left-radius={topLeftCss}
-  style:border-top-right-radius={topRightCss}
-  style:border-bottom-left-radius={bottomLeftCss}
-  style:border-bottom-right-radius={bottomRightCss}
+  style:border-top-left-radius={topLeft.css}
+  style:border-top-right-radius={topRight.css}
+  style:border-bottom-left-radius={bottomLeft.css}
+  style:border-bottom-right-radius={bottomRight.css}
+  bind:this={el}
 >
   <div class="card-body grid grid-rows-3 grid-cols-2">
     <!-- Top Left -->
@@ -132,7 +136,16 @@
       </div>
     </div>
 
-    <div class="col-span-2 flex items-center justify-center">Border Radius</div>
+    <div class="col-span-2 flex flex-col gap-2 items-center justify-center">
+      <span>Border Radius</span>
+
+      <button
+        class="btn btn-xs btn-primary ml-2"
+        on:click={() => navigator.clipboard.writeText(css)}
+      >
+        Copy CSS
+      </button>
+    </div>
 
     <!-- Bottom Left -->
     <div>
