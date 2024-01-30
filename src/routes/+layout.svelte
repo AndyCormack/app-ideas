@@ -19,6 +19,8 @@
   <div class="navbar-center">
     <a href="/" class="btn btn-ghost text-xl">App Ideas</a>
   </div>
+
+  <div class="navbar-end"></div>
 </header>
 
 <main class="w-full max-w-screen-md mx-auto p-4">
