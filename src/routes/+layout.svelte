@@ -12,6 +12,7 @@
         <li>
           <a href="/tier-1/border-radius-previewer">Border-radius Previewer</a>
         </li>
+        <li><a href="/tier-1/christmas-lights">Christmas Lights</a></li>
       </ul>
     </div>
   </div>

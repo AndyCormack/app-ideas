@@ -38,12 +38,12 @@ Working on learning Svelte and SvelteKit by creating the apps listed here: [http
 
   - [x] User can change all 8 possible values of the border-radius in order to create a complex shape
 
-- [ ] [Christmas Lights](https://github.com/florinpop17/app-ideas/blob/master/Projects/1-Beginner/Christmas-Lights-App.md)
+- [x] [Christmas Lights](https://github.com/florinpop17/app-ideas/blob/master/Projects/1-Beginner/Christmas-Lights-App.md)
 
   #### User Stories
 
-  - [ ] User can press a button to start and stop the display
-  - [ ] User can change the interval of time controlling the change in intensity
+  - [x] User can press a button to start and stop the display
+  - [x] User can change the interval of time controlling the change in intensity
 
   #### Bonus features
 
