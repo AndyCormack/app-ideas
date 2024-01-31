@@ -1,6 +1,7 @@
 <script lang="ts">
   let on = $state(true)
   let interval = $state(0.5)
+  let intensity = $state(1)
 
   const lights = [
     { color: 'red' },
@@ -23,12 +24,26 @@
         --color: {on ? light.color : 'transparent'};
         --interval: {interval}s;
         --offset: {(i % 2) * interval}s;
+        --intensity: {intensity};
       "
     />
   {/each}
 </div>
 
-<div class="flex justify-end items-center gap-8">
+<div class="flex flex-wrap justify-end items-center gap-8">
+  <label class="form-control">
+    Intensity: {intensity}
+
+    <input
+      type="range"
+      class="range range-secondary"
+      min="0"
+      max="1"
+      step="0.1"
+      bind:value={intensity}
+    />
+  </label>
+
   <label class="form-control">
     {#if interval > 0}
       Interval: {interval}s
@@ -102,7 +117,7 @@
 
   @keyframes switch {
     0% {
-      opacity: 1;
+      opacity: var(--intensity, 1);
     }
     100% {
       opacity: 0;
