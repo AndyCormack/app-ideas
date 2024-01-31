@@ -5,8 +5,10 @@
   let interval = $state(0.5)
   let intensity = $state(1)
   let dragging = $state(false)
+  let rows = $state(1)
+  let lightsPerRow = $state(7)
 
-  const lights = $state([
+  const lightRow = [
     { color: '#ff3333', height: 72, width: 72 },
     { color: '#ffbb44', height: 72, width: 72 },
     { color: '#55ddff', height: 72, width: 72 },
@@ -14,10 +16,8 @@
     { color: '#ee71fe', height: 72, width: 72 },
     { color: '#ffaacc', height: 72, width: 72 },
     { color: '#ffffff', height: 72, width: 72 },
-  ])
-  const tallestLight = $derived(
-    80 + Math.max(...lights.map((light) => light.height), 0)
-  )
+  ]
+  let lights = $state(JSON.parse(JSON.stringify(lightRow)))
 
   function resizeLight(event: Event, light: (typeof lights)[0]) {
     dragging = false
@@ -31,51 +31,84 @@
     light.height = height
     light.width = width
   }
+
+  function rowsChanged(event: Event) {
+    const currentRows = Math.floor(lights.length / lightsPerRow)
+    const rowsToAdd = rows - currentRows
+
+    if (rowsToAdd === 0) {
+      return
+    }
+
+    if (rowsToAdd > 0) {
+      for (let i = 0; i < rowsToAdd; i++) {
+        lights.push(...JSON.parse(JSON.stringify(lightRow)))
+      }
+      return
+    }
+
+    lights.length = rows * lightsPerRow
+  }
 </script>
 
 <h1 class="text-3xl text-center mb-8">Christmas Lights</h1>
 
-<div
-  class="string flex justify-center mb-20"
-  style:margin-bottom="{tallestLight}px"
->
-  {#each lights as light, i}
-    <div
-      class="light-container relative group flex p-3 -mt-1"
-      style:height="{light.height}px"
-      style:width="{light.width}px"
-      on:pointerdown={() => (dragging = true)}
-      on:pointerup={(e) => resizeLight(e, light)}
-    >
-      <label
-        class="light flex"
-        style="
+<div class="text-center">
+  <div class="lights mb-12 max-w-full">
+    {#each lights as light, i}
+      <div class="grid-cell">
+        <div
+          class="light-container relative group flex p-3 -mt-1"
+          style:height="{light.height}px"
+          style:width="{light.width}px"
+          on:pointerdown={() => (dragging = true)}
+          on:pointerup={(e) => resizeLight(e, light)}
+        >
+          <label
+            class="light flex"
+            style="
         --color: {on ? light.color : 'transparent'};
         --interval: {interval}s;
         --offset: {(i % 2) * interval}s;
         --intensity: {intensity};
       "
-      >
-        <input
-          type="color"
-          class="sr-only"
-          disabled={dragging}
-          aria-label="Pick a colour for light {i + 1}"
-          bind:value={light.color}
-        />
-        <div class="focus-outline" />
+          >
+            <input
+              type="color"
+              class="sr-only"
+              disabled={dragging}
+              aria-label="Pick a colour for light {i + 1}"
+              bind:value={light.color}
+            />
+            <div class="focus-outline" />
 
-        <div
-          class="absolute w-full h-full cursor-pointer opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity duration-150 flex items-center justify-center"
-        >
-          <Icon icon="pepicons-pop:color-picker" class="text-xl" />
+            <div
+              class="absolute w-full h-full cursor-pointer opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity duration-150 flex items-center justify-center"
+            >
+              <Icon icon="pepicons-pop:color-picker" class="text-xl" />
+            </div>
+          </label>
         </div>
-      </label>
-    </div>
-  {/each}
+      </div>
+    {/each}
+  </div>
 </div>
 
-<div class="flex flex-wrap justify-end items-center gap-8">
+<div class="flex flex-wrap justify-center items-center gap-8">
+  <label class="form-control">
+    Rows: {rows}
+
+    <input
+      type="range"
+      class="range range-secondary"
+      min="1"
+      max={lightsPerRow}
+      step="1"
+      bind:value={rows}
+      on:change={rowsChanged}
+    />
+  </label>
+
   <label class="form-control">
     Intensity: {intensity}
 
@@ -113,14 +146,33 @@
 </div>
 
 <style>
-  .string {
-    height: 0.3rem;
-    background: #000;
+  .lights {
+    display: inline-grid;
+    grid-template-columns: repeat(7, auto);
+    gap: 2rem 0;
   }
 
+  .grid-cell {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+  .grid-cell::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 0.5rem;
+    background-color: #000;
+  }
+
+  .light-container {
+    overflow: hidden;
+    display: inline-flex;
+  }
   .light-container:hover {
     resize: both;
-    overflow: hidden;
   }
 
   .light {
