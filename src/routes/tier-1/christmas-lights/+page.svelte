@@ -29,10 +29,16 @@
         --intensity: {intensity};
       "
     >
-      <input type="color" class="hidden" bind:value={light.color} />
+      <input
+        type="color"
+        class="sr-only"
+        aria-label="Pick a colour for light {i + 1}"
+        bind:value={light.color}
+      />
+      <div class="focus-outline" />
 
       <div
-        class="absolute w-full h-full cursor-pointer opacity-0 group-hover:opacity-100 transition-opacity duration-150 flex items-center justify-center"
+        class="absolute w-full h-full cursor-pointer opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity duration-150 flex items-center justify-center"
       >
         <Icon icon="pepicons-pop:color-picker" class="text-xl" />
       </div>
@@ -125,11 +131,38 @@
     animation-direction: alternate;
   }
 
+  .focus-outline {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    outline: 0.2rem solid transparent;
+    transition: outline-color 150ms ease-in-out;
+  }
+  :focus + .focus-outline {
+    outline-color: #fff;
+    animation: pulse 1s infinite;
+  }
+
   @keyframes switch {
     0% {
       opacity: var(--intensity, 1);
     }
     100% {
+      opacity: 0;
+    }
+  }
+
+  @keyframes pulse {
+    0% {
+      outline-width: 0.2rem;
+      outline-offset: 0;
+    }
+    100% {
+      outline-width: 0;
+      outline-offset: 0.5rem;
       opacity: 0;
     }
   }
