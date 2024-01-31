@@ -19,10 +19,11 @@
   {#each lights as light, i}
     <div
       class="light m-2"
-      style="--color: {on ? light.color : '#222'}; animation-delay: {(i % 2) *
-        interval}s;"
-      style:animation-timeline={on ? 'infinite' : 'none'}
-      style:animation-duration="{interval}s"
+      style="
+        --color: {on ? light.color : 'transparent'};
+        --interval: {interval}s;
+        --offset: {(i % 2) * interval}s;
+      "
     />
   {/each}
 </div>
@@ -62,14 +63,14 @@
     width: 3rem;
     height: 3rem;
     border-radius: 50%;
-    color: #fff;
-    background-color: var(--color, currentColor);
-    border: 1px solid #fff5;
-    box-shadow: 0 0 1rem var(--color, currentColor);
-    animation-name: switch;
-    animation-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1);
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
+    background-image: radial-gradient(
+      circle,
+      #fff5 0%,
+      #fff0 25%,
+      #fff0 50%,
+      #fff5 75%,
+      #fff5 100%
+    );
   }
   .light::before {
     content: '';
@@ -83,18 +84,20 @@
   }
   .light::after {
     content: '';
+    z-index: -1;
     position: absolute;
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    background-image: radial-gradient(
-      circle,
-      #fff5 0%,
-      #fff0 25%,
-      #fff0 50%,
-      #fff5 75%,
-      #fff5 100%
-    );
+    color: #fff;
+    background-color: var(--color, currentColor);
+    box-shadow: 0 0 1rem var(--color, currentColor);
+    animation-name: switch;
+    animation-delay: var(--offset, 0);
+    animation-duration: var(--interval, 0);
+    animation-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1);
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
   }
 
   @keyframes switch {
@@ -102,7 +105,7 @@
       opacity: 1;
     }
     100% {
-      opacity: 0.5;
+      opacity: 0;
     }
   }
 </style>
