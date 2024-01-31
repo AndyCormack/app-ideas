@@ -3,22 +3,22 @@
   let interval = $state(0.5)
   let intensity = $state(1)
 
-  const lights = [
-    { color: 'red' },
-    { color: 'orange' },
-    { color: 'cyan' },
-    { color: 'lime' },
-    { color: '#62f' },
-    { color: 'violet' },
-    { color: 'white' },
-  ]
+  const lights = $state([
+    { color: '#ff3333' },
+    { color: '#ffbb44' },
+    { color: '#55ddff' },
+    { color: '#00ff7b' },
+    { color: '#ee71fe' },
+    { color: '#ffaacc' },
+    { color: '#ffffff' },
+  ])
 </script>
 
 <h1 class="text-3xl text-center mb-8">Christmas Lights</h1>
 
 <div class="string flex justify-center mb-20">
   {#each lights as light, i}
-    <div
+    <label
       class="light m-2"
       style="
         --color: {on ? light.color : 'transparent'};
@@ -26,7 +26,9 @@
         --offset: {(i % 2) * interval}s;
         --intensity: {intensity};
       "
-    />
+    >
+      <input type="color" class="hidden" bind:value={light.color} />
+    </label>
   {/each}
 </div>
 
