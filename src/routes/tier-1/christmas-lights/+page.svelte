@@ -1,4 +1,6 @@
 <script lang="ts">
+  import Icon from '@iconify/svelte'
+
   let on = $state(true)
   let interval = $state(0.5)
   let intensity = $state(1)
@@ -19,7 +21,7 @@
 <div class="string flex justify-center mb-20">
   {#each lights as light, i}
     <label
-      class="light m-2"
+      class="light m-2 group"
       style="
         --color: {on ? light.color : 'transparent'};
         --interval: {interval}s;
@@ -28,6 +30,12 @@
       "
     >
       <input type="color" class="hidden" bind:value={light.color} />
+
+      <div
+        class="absolute w-full h-full cursor-pointer opacity-0 group-hover:opacity-100 transition-opacity duration-150 flex items-center justify-center"
+      >
+        <Icon icon="pepicons-pop:color-picker" class="text-xl" />
+      </div>
     </label>
   {/each}
 </div>
