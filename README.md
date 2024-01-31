@@ -49,7 +49,7 @@ Working on learning Svelte and SvelteKit by creating the apps listed here: [http
 
   - [x] User can select the color used to fill each circle
   - [x] User can specify the intensity value
-  - [ ] User can change the size of any circle in the row
+  - [x] User can change the size of any circle in the row
   - [ ] User can specify the number of rows to be included in the display. From
         one to seven rows can be chosen
 

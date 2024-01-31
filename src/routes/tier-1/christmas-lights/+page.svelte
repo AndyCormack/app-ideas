@@ -4,45 +4,74 @@
   let on = $state(true)
   let interval = $state(0.5)
   let intensity = $state(1)
+  let dragging = $state(false)
 
   const lights = $state([
-    { color: '#ff3333' },
-    { color: '#ffbb44' },
-    { color: '#55ddff' },
-    { color: '#00ff7b' },
-    { color: '#ee71fe' },
-    { color: '#ffaacc' },
-    { color: '#ffffff' },
+    { color: '#ff3333', height: 72, width: 72 },
+    { color: '#ffbb44', height: 72, width: 72 },
+    { color: '#55ddff', height: 72, width: 72 },
+    { color: '#00ff7b', height: 72, width: 72 },
+    { color: '#ee71fe', height: 72, width: 72 },
+    { color: '#ffaacc', height: 72, width: 72 },
+    { color: '#ffffff', height: 72, width: 72 },
   ])
+  const tallestLight = $derived(
+    80 + Math.max(...lights.map((light) => light.height), 0)
+  )
+
+  function resizeLight(event: Event, light: (typeof lights)[0]) {
+    dragging = false
+    if (!event.currentTarget) {
+      return
+    }
+
+    const lightElement: HTMLElement | null = event.currentTarget as HTMLElement
+    const { width, height } = lightElement.getBoundingClientRect()
+
+    light.height = height
+    light.width = width
+  }
 </script>
 
 <h1 class="text-3xl text-center mb-8">Christmas Lights</h1>
 
-<div class="string flex justify-center mb-20">
+<div
+  class="string flex justify-center mb-20"
+  style:margin-bottom="{tallestLight}px"
+>
   {#each lights as light, i}
-    <label
-      class="light m-2 group"
-      style="
+    <div
+      class="light-container relative group flex p-3 -mt-1"
+      style:height="{light.height}px"
+      style:width="{light.width}px"
+      on:pointerdown={() => (dragging = true)}
+      on:pointerup={(e) => resizeLight(e, light)}
+    >
+      <label
+        class="light flex"
+        style="
         --color: {on ? light.color : 'transparent'};
         --interval: {interval}s;
         --offset: {(i % 2) * interval}s;
         --intensity: {intensity};
       "
-    >
-      <input
-        type="color"
-        class="sr-only"
-        aria-label="Pick a colour for light {i + 1}"
-        bind:value={light.color}
-      />
-      <div class="focus-outline" />
-
-      <div
-        class="absolute w-full h-full cursor-pointer opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity duration-150 flex items-center justify-center"
       >
-        <Icon icon="pepicons-pop:color-picker" class="text-xl" />
-      </div>
-    </label>
+        <input
+          type="color"
+          class="sr-only"
+          disabled={dragging}
+          aria-label="Pick a colour for light {i + 1}"
+          bind:value={light.color}
+        />
+        <div class="focus-outline" />
+
+        <div
+          class="absolute w-full h-full cursor-pointer opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity duration-150 flex items-center justify-center"
+        >
+          <Icon icon="pepicons-pop:color-picker" class="text-xl" />
+        </div>
+      </label>
+    </div>
   {/each}
 </div>
 
@@ -89,11 +118,17 @@
     background: #000;
   }
 
+  .light-container:hover {
+    resize: both;
+    overflow: hidden;
+  }
+
   .light {
     position: relative;
-    width: 3rem;
-    height: 3rem;
+    width: 100%;
+    height: 100%;
     border-radius: 50%;
+    border: 1px solid #fff4;
     background-image: radial-gradient(
       circle,
       #fff5 0%,
@@ -122,7 +157,7 @@
     border-radius: 50%;
     color: #fff;
     background-color: var(--color, currentColor);
-    box-shadow: 0 0 1rem var(--color, currentColor);
+    box-shadow: 0 0 0.75rem var(--color, currentColor);
     animation-name: switch;
     animation-delay: var(--offset, 0);
     animation-duration: var(--interval, 0);
